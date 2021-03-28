@@ -9,15 +9,20 @@ namespace TaskAPI.Controllers
     public class UserController : ControllerBase
     {
         private readonly UserService _userService;
-
+        
         public UserController(UserService userService)
         {
             _userService = userService;
         }
 
         [HttpPost("/user")]
-        public async Task<ActionResult> TestPostUser(User user)
+        public async Task<ActionResult> TestPostUser([FromBody] User user)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             //Add user map to map postUser object to mongoUser object
             //Find good place for postUser (maybe in services folder)
 

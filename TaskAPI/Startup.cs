@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -14,6 +15,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using TaskAPI.Models;
 using TaskAPI.Services;
+using TaskAPI.Profiles;
 
 namespace TaskAPI
 {
@@ -29,6 +31,16 @@ namespace TaskAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //Creating a mapper to help bridge the gap between services and code objects
+            var mapperConfig = new MapperConfiguration(c =>
+            {
+                c.AddProfile(new TaskAPIProfile());
+            });
+            var mapper = mapperConfig.CreateMapper();
+            //Configuring the mapper to be a singleton service so every http service doesn't create a new mapper each time
+            services.AddSingleton<IMapper>(mapper);
+            services.AddSingleton<MapperConfiguration>(mapperConfig);
+
             services.Configure<TasksDatabaseSettings>(Configuration.GetSection(nameof(TasksDatabaseSettings)));
             services.AddSingleton<ITasksDatabaseSettings>(sp => sp.GetRequiredService<IOptions<TasksDatabaseSettings>>().Value);
 
