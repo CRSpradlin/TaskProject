@@ -31,5 +31,11 @@ namespace TaskAPI.Services
 
             return mongoUser;
         }
+
+        public async Task<MongoUserModel> GetUser(string id)
+        {
+            var response = await _users.Find(user => user.Id == id).FirstOrDefaultAsync();
+            return response;
+        }
     }
 }
