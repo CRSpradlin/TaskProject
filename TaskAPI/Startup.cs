@@ -16,6 +16,11 @@ using Microsoft.OpenApi.Models;
 using TaskAPI.Models;
 using TaskAPI.Services;
 using TaskAPI.Profiles;
+using TaskAPI.Configuration;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System.Text;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Identity;
 
 namespace TaskAPI
 {
@@ -31,6 +36,9 @@ namespace TaskAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //Jwt Configuration
+            services.Configure<JwtConfig>(Configuration.GetSection("JwtConfig"));
+
             //Creating a mapper to help bridge the gap between services and code objects
             var mapperConfig = new MapperConfiguration(c =>
             {
@@ -45,6 +53,31 @@ namespace TaskAPI
             services.AddSingleton<ITasksDatabaseSettings>(sp => sp.GetRequiredService<IOptions<TasksDatabaseSettings>>().Value);
 
             services.AddSingleton<UserService>();
+
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+
+            })
+            .AddJwtBearer(jwt =>
+            {
+                var key = Encoding.ASCII.GetBytes(Configuration["JwtConfig:Secret"]);
+
+                jwt.SaveToken = true;
+                jwt.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    ValidateLifetime = true,
+                    RequireExpirationTime = false //Will change this later
+                };
+            });
+
+            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true);
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -66,6 +99,8 @@ namespace TaskAPI
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 
