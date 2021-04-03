@@ -10,6 +10,7 @@
     <PackageReference Include="AutoMapper" Version="10.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.4" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="5.0.4" />
+    <PackageReference Include="AspNetCore.Identity.MongoDbCore" Version="3.1.1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -17,5 +18,8 @@
     <Folder Include="Services\" />
     <Folder Include="Profiles\" />
     <Folder Include="Configuration\" />
+    <Folder Include="Models\DTOs\" />
+    <Folder Include="Models\DTOs\Requests\" />
+    <Folder Include="Models\DTOs\Responses\" />
   </ItemGroup>
 </Project>

@@ -21,6 +21,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Identity;
+using MongoDbGenericRepository;
 
 namespace TaskAPI
 {
@@ -77,7 +78,8 @@ namespace TaskAPI
                 };
             });
 
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true);
+            //var mongoDbContext = new MongoDbContext(Configuration["TasksDatabaseSettings:ConnectionString"], Configuration["TasksDatabaseSettings:DatabaseName"]);
+            //services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddMongoDbStores<MongoDbContext>(mongoDbContext).AddDefaultTokenProviders();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
