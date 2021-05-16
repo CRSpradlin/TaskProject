@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
 using AutoMapper;
@@ -13,9 +14,12 @@ namespace TaskAPI.Profiles
         public TaskAPIProfile()
         {
             CreateMap<User, MongoUserModel>()
-                .ForMember(dest => dest.HashedPassword, opt => opt.MapFrom(source => UserService.ComputeSha256Hash(source.Password)));
+                .ForMember(dest => dest.HashedPassword, opt => opt.MapFrom(source => DataService.ComputeSha256Hash(source.Password)));
             CreateMap<UserRegistrationDto, User>();
-            CreateMap<UserLoginDto, User>();
+            CreateMap<UserLoginDto, User>()
+                .ForMember(dest => dest.TaskIds, opt => opt.Equals(new List<string>()));
+
+            CreateMap<Task, MongoTaskModel>();
         }
 
     }

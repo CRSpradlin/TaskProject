@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Security.Cryptography;
-using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using MongoDB.Driver;
@@ -12,15 +10,13 @@ namespace TaskAPI.Services
     {
         private readonly IMongoCollection<MongoUserModel> _users;
         private IMapper _mapper;
-        private MapperConfiguration _mapperConfig;
 
-        public UserService(ITasksDatabaseSettings settings, IMapper mapper, MapperConfiguration mapperConfig)
+        public UserService(ITasksDatabaseSettings settings, IMapper mapper)
         {
             var client = new MongoClient(settings.ConnectionString);
             var database = client.GetDatabase(settings.DatabaseName);
 
             _mapper = mapper;
-            _mapperConfig = mapperConfig;
 
             _users = database.GetCollection<MongoUserModel>(settings.UserCollectionName);
         }
@@ -53,7 +49,7 @@ namespace TaskAPI.Services
             if (await UserExists(userToVerify.Email))
             {
                 var actualUser = await GetUserByEmail(userToVerify.Email);
-                if(actualUser.HashedPassword == ComputeSha256Hash(userToVerify.Password))
+                if(actualUser.HashedPassword == DataService.ComputeSha256Hash(userToVerify.Password))
                 {
                     return actualUser;
                 }
@@ -76,25 +72,6 @@ namespace TaskAPI.Services
             }
 
             return response;
-        }
-
-
-        public static string ComputeSha256Hash(string rawData)
-        {
-            // Create a SHA256   
-            using (SHA256 sha256Hash = SHA256.Create())
-            {
-                // ComputeHash - returns byte array  
-                byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(rawData));
-
-                // Convert byte array to a string   
-                StringBuilder builder = new StringBuilder();
-                for (int i = 0; i < bytes.Length; i++)
-                {
-                    builder.Append(bytes[i].ToString("x2"));
-                }
-                return builder.ToString();
-            }
         }
     }
 }

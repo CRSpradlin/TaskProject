@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.809.3
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskAPI", "TaskAPI\TaskAPI.csproj", "{C41C553E-F902-4DEC-927D-530B81108426}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskAPI", "TaskAPI\TaskAPI.csproj", "{003C3311-B2CF-41C2-8CDB-7C9FCDBF1F5F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{C41C553E-F902-4DEC-927D-530B81108426}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C41C553E-F902-4DEC-927D-530B81108426}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C41C553E-F902-4DEC-927D-530B81108426}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C41C553E-F902-4DEC-927D-530B81108426}.Release|Any CPU.Build.0 = Release|Any CPU
+		{003C3311-B2CF-41C2-8CDB-7C9FCDBF1F5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{003C3311-B2CF-41C2-8CDB-7C9FCDBF1F5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{003C3311-B2CF-41C2-8CDB-7C9FCDBF1F5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{003C3311-B2CF-41C2-8CDB-7C9FCDBF1F5F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
