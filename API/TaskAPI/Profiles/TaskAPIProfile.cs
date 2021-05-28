@@ -20,6 +20,8 @@ namespace TaskAPI.Profiles
                 .ForMember(dest => dest.TaskIds, opt => opt.Equals(new List<string>()));
 
             CreateMap<Task, MongoTaskModel>();
+            CreateMap<TaskCreationDto, Task>()
+                .ForMember(dest => dest.Completed, opt => opt.Equals(false));
         }
 
     }

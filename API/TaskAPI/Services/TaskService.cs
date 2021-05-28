@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using AutoMapper;
 using MongoDB.Driver;
 using TaskAPI.Models;
@@ -21,6 +22,21 @@ namespace TaskAPI.Services
 
             _tasks = database.GetCollection<MongoTaskModel>(settings.TaskCollectionName);
             _users = database.GetCollection<MongoUserModel>(settings.UserCollectionName);
+        }
+
+        public async Task<MongoTaskModel> Create(MongoUserModel user, Models.Task task)
+        {
+            var mongoTask = _mapper.Map<MongoTaskModel>(task);
+
+            await _tasks.InsertOneAsync(mongoTask);
+
+            user.TaskIds.Add(mongoTask.Id);
+
+            var userFilter = Builders<MongoUserModel>.Filter.Eq("Id", user.Id);
+            var userUpdate = Builders<MongoUserModel>.Update.Set("TaskIds", user.TaskIds);
+            await _users.UpdateOneAsync(userFilter, userUpdate);
+
+            return mongoTask;
         }
 
 

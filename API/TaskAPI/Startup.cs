@@ -54,6 +54,7 @@ namespace TaskAPI
             services.AddSingleton<ITasksDatabaseSettings>(sp => sp.GetRequiredService<IOptions<TasksDatabaseSettings>>().Value);
 
             services.AddSingleton<UserService>();
+            services.AddSingleton<TaskService>();
 
             services.AddAuthentication(options =>
             {
