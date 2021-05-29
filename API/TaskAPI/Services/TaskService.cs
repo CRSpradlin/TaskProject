@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using MongoDB.Driver;
@@ -39,6 +40,16 @@ namespace TaskAPI.Services
             return mongoTask;
         }
 
+        public async Task<List<MongoTaskModel>> GetTasks(MongoUserModel user)
+        {
+            var data = new List<MongoTaskModel>();
 
+            foreach(var taskId in user.TaskIds)
+            {
+                data.Add(await _tasks.Find(task => task.Id == taskId).FirstOrDefaultAsync());
+            }
+
+            return data;
+        }
     }
 }

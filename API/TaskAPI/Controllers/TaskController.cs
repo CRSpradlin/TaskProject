@@ -42,5 +42,18 @@ namespace TaskAPI.Controllers
 
             return Ok();
         }
+
+        [HttpGet("/getTasks")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public async Task<ActionResult> getTasks()
+        {
+            var userId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "Id").Value;
+
+            var user = await _userService.GetUserById(userId);
+
+            var tasks = await _taskService.GetTasks(user);
+
+            return Ok(tasks);
+        }
     }
 }
