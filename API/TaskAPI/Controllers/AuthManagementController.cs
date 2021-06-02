@@ -28,7 +28,7 @@ namespace TaskAPI.Controllers
             _mapper = mapper;
         }
 
-        [HttpPost("/login")]
+        [HttpPost("/api/login")]
         public async Task<IActionResult> Login([FromBody] UserLoginDto userRequest)
         {
             if (ModelState.IsValid)
@@ -53,7 +53,7 @@ namespace TaskAPI.Controllers
             }
         }
 
-        [HttpPost("/register")]
+        [HttpPost("/api/register")]
         public async Task<IActionResult> Register([FromBody] UserRegistrationDto userRequest)
         {
             if (ModelState.IsValid)

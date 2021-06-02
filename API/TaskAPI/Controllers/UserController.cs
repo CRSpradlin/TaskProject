@@ -24,7 +24,7 @@ namespace TaskAPI.Controllers
             _userService = userService;
         }
 
-        [HttpPost("/checkAuth")]
+        [HttpPost("/api/check")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public ActionResult AuthorizationCheck()
         {
@@ -36,7 +36,7 @@ namespace TaskAPI.Controllers
             return Ok(email);
         }
 
-        [HttpPost("/user")]
+        [HttpPost("/api/user")]
         public async Task<ActionResult> TestPostUser([FromBody] UserRegistrationDto user)
         {
             if (!ModelState.IsValid)
@@ -59,7 +59,7 @@ namespace TaskAPI.Controllers
             public string Email { get; set; }
         }
 
-        [HttpPost("/exist")]
+        [HttpPost("/api/exist")]
         public async Task<ActionResult> TestUserExists([FromBody] testExistRequest req)
         {
             if (!ModelState.IsValid)

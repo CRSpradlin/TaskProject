@@ -27,7 +27,7 @@ namespace TaskAPI.Controllers
             _userService = userService;
         }
 
-        [HttpPost("/createTask")]
+        [HttpPost("/api/task")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<ActionResult> createTask([FromBody] TaskCreationDto taskDto)
         {
@@ -43,7 +43,7 @@ namespace TaskAPI.Controllers
             return Ok();
         }
 
-        [HttpGet("/getTasks")]
+        [HttpGet("/api/tasks")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<ActionResult> getTasks()
         {

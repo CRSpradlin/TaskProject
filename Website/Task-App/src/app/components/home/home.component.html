@@ -1,1 +1,7 @@
 <p>home works!</p>
+<div *ngIf="(loggedIn$ | async)">
+    {{ (userData$ | async)?.email }}
+</div>
+<div *ngIf="!(loggedIn$ | async)">
+    Please Log In!
+</div>
