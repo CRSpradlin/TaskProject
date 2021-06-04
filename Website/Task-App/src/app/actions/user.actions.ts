@@ -14,17 +14,35 @@ export const userRegistrationFormIncorrectlySubmitted = createAction(
     '[app user] User Registration Form Submitted with Incorrect Input' 
 );
 
-export const userRegistrationCompleted = createAction(
-    '[app user] User Registration Completed',
+export const userRegistrationFailed = createAction(
+    '[app user] User Registration Failed'
+);
+
+export const userLogInFormSubmitted = createAction(
+    '[app user] User Login Form Submitted',
+    ({ email, password }: { email: string, password: string }) => ({
+        payload: {
+            email,
+            password
+        }
+    })
+);
+
+export const userAuthenticationFormCallbackSuccessful = createAction(
+    '[app user] User Authentication Callback Completed',
     ({ token, email }: { token: string, email: string }) => ({
         token,
         email
     })
 );
 
-export const userRegistrationFailed = createAction(
-    '[app user] UserRegistration Failed'
+export const userLogInFormIncorrectlySubmitted = createAction(
+    '[app user] User Login Form Submitted with Incorrect Input'
 );
+
+export const userLoginFailed = createAction(
+    '[app user] User Login Failed'
+)
 
 export const userLoggedIn = createAction(
     '[app user] User Logged In Successfully',
@@ -35,4 +53,8 @@ export const userLoggedIn = createAction(
         },
         loggedIn: true
     })
+);
+
+export const userLoggedOut = createAction(
+    '[app user] User Logged Out'
 )

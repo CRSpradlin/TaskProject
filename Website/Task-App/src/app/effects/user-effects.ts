@@ -27,7 +27,7 @@ export class UserEffects {
                 password: a.payload.password
             })
                 .pipe(
-                    map(res => userActions.userRegistrationCompleted({ token: res.token, email: a.payload.email })),
+                    map(res => userActions.userAuthenticationFormCallbackSuccessful({ token: res.token, email: a.payload.email })),
                     catchError(err => of(userActions.userRegistrationFailed()))
                 )
             )
@@ -36,7 +36,22 @@ export class UserEffects {
 
     loginUser$ = createEffect(() => 
         this.actions$.pipe(
-            ofType(userActions.userRegistrationCompleted),
+            ofType(userActions.userLogInFormSubmitted),
+            switchMap(a => this.client.post<userResponseModel>('/api/login/', {
+                email: a.payload.email,
+                password: a.payload.password
+            })
+                .pipe(
+                    map(res => userActions.userAuthenticationFormCallbackSuccessful({ token: res.token, email: a.payload.email })),
+                    catchError(err => of(userActions.userLoginFailed()))
+                )
+            )
+        ), { dispatch: true }
+    )
+
+    placeCookies$ = createEffect(() => 
+        this.actions$.pipe(
+            ofType(userActions.userAuthenticationFormCallbackSuccessful),
             tap(a => this.cookieService.set('token', a.token)),
             tap(a => this.cookieService.set('email', a.email)),
             map(a => userActions.userLoggedIn({ token: a.token, email: a.email }))
@@ -46,9 +61,19 @@ export class UserEffects {
     checkCookies$ = createEffect(() =>
         this.actions$.pipe(
             ofType(appActions.applicationStarted),
-            map(() => {}),
             filter(() => this.cookieService.check('token') === true),
+            map(() => {}),
             map(() => userActions.userLoggedIn({token: this.cookieService.get('token'), email: this.cookieService.get('email')}))
         ), { dispatch: true }
+    )
+
+    logoutUser$ = createEffect(() => 
+        this.actions$.pipe(
+            ofType(userActions.userLoggedOut),
+            map(() => {
+                this.cookieService.delete('token');
+                this.cookieService.delete('email');
+            })
+        ), { dispatch: false }
     )
 }

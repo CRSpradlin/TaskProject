@@ -23,7 +23,8 @@ const initialState: UserState = {
 
 const myReducer = createReducer(
   initialState,
-  on(actions.userLoggedIn, (s, a) => ({ ...s, data: a.data, loggedIn: a.loggedIn }))
+  on(actions.userLoggedIn, (s, a) => ({ ...s, data: a.data, loggedIn: a.loggedIn })),
+  on(actions.userLoggedOut, (s) => ({...s, ...initialState}))
 //   on(actions.countDecremented, (s) => ({ ...s, current: s.current - s.by })),
 //   on(actions.countBySet, (s, a) => ({ ...s, by: a.by })),
 //   on(actions.countReset, (s) => ({ ...s, current: 0 }))

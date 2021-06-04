@@ -16,6 +16,7 @@ import { CookieService } from 'ngx-cookie-service';
 
 import { HttpClientModule } from "@angular/common/http";
 import { UserEffects } from './effects/user-effects';
+import { TasksComponent } from './components/tasks/tasks.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { UserEffects } from './effects/user-effects';
     NavComponent,
     LoginComponent,
     RegisterComponent,
-    HomeComponent
+    HomeComponent,
+    TasksComponent
   ],
   imports: [
     BrowserModule,

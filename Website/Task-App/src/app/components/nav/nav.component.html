@@ -2,10 +2,20 @@
     <li class="nav-item">
         <a class="btn btn-primary" [routerLinkActive]="['disabled']" [routerLink]="['home']" aria-current="page">Home</a>
     </li>
-    <li class="nav-item">
+
+    <li *ngIf="(loggedIn$ | async)" class="nav-item">
+        <a class="btn btn-primary" [routerLinkActive]="['disabled']" [routerLink]="['tasks']" aria-current="page">Tasks</a>
+    </li>
+    <li *ngIf="(loggedIn$ | async)" class="nav-item">
+        <a class="btn btn-primary" (click)="logOut()" [routerLink]="['home']" aria-current="page">Log Out</a>
+    </li>
+
+
+    <li *ngIf="!(loggedIn$ | async)" class="nav-item">
         <a class="btn btn-primary" [routerLinkActive]="['disabled']" [routerLink]="['register']" aria-current="page">Register</a>
     </li>
-    <li class="nav-item">
+    <li *ngIf="!(loggedIn$ | async)" class="nav-item">
         <a class="btn btn-primary" [routerLinkActive]="['disabled']" [routerLink]="['login']" aria-current="page">Login</a>
     </li>
+
 </ul>

@@ -34,8 +34,9 @@ export class RegisterComponent implements OnInit {
     if (this.formGroup.valid){
       //dispatch to send credentials to API
       this.store.dispatch(userRegistrationSubmitted(this.formGroup.value));
+      this.formGroup.reset();
     } else {
-      this.store.dispatch(userRegistrationFormIncorrectlySubmitted())
+      this.store.dispatch(userRegistrationFormIncorrectlySubmitted());
     }
   }
 
