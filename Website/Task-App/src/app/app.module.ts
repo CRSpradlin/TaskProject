@@ -17,6 +17,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { HttpClientModule } from "@angular/common/http";
 import { UserEffects } from './effects/user-effects';
 import { TasksComponent } from './components/tasks/tasks.component';
+import { TaskEffects } from './effects/task-effects';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,7 @@ import { TasksComponent } from './components/tasks/tasks.component';
     ReactiveFormsModule,
     StoreModule.forRoot(reducers),
     StoreDevtoolsModule.instrument(),
-    EffectsModule.forRoot([UserEffects]),
+    EffectsModule.forRoot([UserEffects, TaskEffects]),
     HttpClientModule
   ],
   providers: [CookieService],

@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TaskAPI.Models;
 using TaskAPI.Models.DTOs.Requests;
+using TaskAPI.Models.DTOs.Responses;
 using TaskAPI.Services;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -43,7 +44,7 @@ namespace TaskAPI.Controllers
             return Ok();
         }
 
-        [HttpGet("/api/tasks")]
+        [HttpGet("/api/task")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<ActionResult> getTasks()
         {
@@ -53,7 +54,10 @@ namespace TaskAPI.Controllers
 
             var tasks = await _taskService.GetTasks(user);
 
-            return Ok(tasks);
+            return Ok(new TasksResponse
+            {
+                Data = tasks
+            });
         }
     }
 }

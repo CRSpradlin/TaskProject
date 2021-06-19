@@ -7,6 +7,7 @@ import { catchError, filter, map, switchMap, tap } from "rxjs/operators";
 
 import { environment } from '../../environments/environment';
 import * as userActions from "../actions/user.actions";
+import * as taskActions from "../actions/task.actions";
 import * as appActions from "../actions/app.actions"
 
 interface userResponseModel {
@@ -73,7 +74,8 @@ export class UserEffects {
             map(() => {
                 this.cookieService.delete('token');
                 this.cookieService.delete('email');
-            })
-        ), { dispatch: false }
+            }),
+            map(() => taskActions.clearTasks())
+        ), { dispatch: true }
     )
 }

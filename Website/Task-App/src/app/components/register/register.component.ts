@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 import { userRegistrationFormIncorrectlySubmitted, userRegistrationSubmitted } from 'src/app/actions/user.actions';
-import { AppState } from 'src/app/reducers';
+import { AppState, selectUserLoggedInBoolean } from 'src/app/reducers';
 import { EqualityValidator } from 'src/app/validators/equality.validator';
 
 @Component({
@@ -13,16 +15,24 @@ import { EqualityValidator } from 'src/app/validators/equality.validator';
 export class RegisterComponent implements OnInit {
 
   formGroup!: FormGroup;
+  loggedIn$?: Observable<boolean>;
 
-  constructor(private formBuilder:FormBuilder, private store: Store<AppState>) { }
+  constructor(private formBuilder:FormBuilder, private store: Store<AppState>, private router: Router) { }
 
   ngOnInit(): void {
+    this.loggedIn$ = this.store.select(selectUserLoggedInBoolean);
     this.formGroup = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
       retypePassword: ['', [Validators.required]]
     }, { 
       validator: EqualityValidator('password', 'retypePassword')
+    });
+
+    this.loggedIn$.subscribe(loggedIn => {
+      if(loggedIn){
+        this.router.navigate(['/home']);
+      }
     });
   }
 

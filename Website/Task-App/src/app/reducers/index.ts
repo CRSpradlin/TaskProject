@@ -1,13 +1,16 @@
 import { ActionReducerMap, createSelector } from '@ngrx/store';
 
 import * as userStore from './user.reducer';
+import * as taskStore from './tasks.reducer';
 
 export interface AppState {
     user: userStore.UserState;
+    tasks: taskStore.TaskState;
 }
 
 export const reducers: ActionReducerMap<AppState> = {
-    user: userStore.reducer
+    user: userStore.reducer,
+    tasks: taskStore.reducer
 }
 
 const selectUserBranch = (state: AppState) => state.user;

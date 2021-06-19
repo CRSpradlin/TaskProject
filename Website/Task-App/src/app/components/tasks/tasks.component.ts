@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { loadTasks } from 'src/app/actions/task.actions';
+import { AppState } from 'src/app/reducers';
 
 @Component({
   selector: 'app-tasks',
@@ -7,9 +10,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TasksComponent implements OnInit {
 
-  constructor() { }
+  constructor(private store: Store<AppState>) { }
 
   ngOnInit(): void {
+    this.store.dispatch(loadTasks());
   }
 
 }
