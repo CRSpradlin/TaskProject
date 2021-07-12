@@ -1,8 +1,15 @@
 .nav {
+    flex-direction: row;
+    width: 100%;
     margin: .1rem;
     padding: .1rem;
 
     &-item{
-        @extend .nav;
+        margin: .1rem;
+        padding: .1rem;
     }
+}
+
+.nav-item.nav-right {
+    margin-left:auto;
 }
