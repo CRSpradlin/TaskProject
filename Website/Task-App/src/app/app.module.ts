@@ -18,6 +18,7 @@ import { HttpClientModule } from "@angular/common/http";
 import { UserEffects } from './effects/user-effects';
 import { TasksComponent } from './components/tasks/tasks.component';
 import { TaskEffects } from './effects/task-effects';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { TaskEffects } from './effects/task-effects';
     StoreModule.forRoot(reducers),
     StoreDevtoolsModule.instrument(),
     EffectsModule.forRoot([UserEffects, TaskEffects]),
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule
   ],
   providers: [CookieService],
   bootstrap: [AppComponent]
