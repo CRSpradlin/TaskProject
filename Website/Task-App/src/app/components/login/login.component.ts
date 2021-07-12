@@ -31,6 +31,10 @@ export class LoginComponent implements OnInit {
     })
   }
 
+  get f(){
+    return this.formGroup.controls;
+  }
+
   submit(): void {
     if (this.formGroup.valid) {
       this.store.dispatch(userLogInFormSubmitted(this.formGroup.value));
