@@ -1,5 +1,23 @@
 version: "3.8"
 services:
+  # task-app:
+  #   image: task-app
+  #   build:
+  #     context: ./Website/Task-App
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - 80:4200
+  #   container_name: task-app
+  #   restart: unless-stopped
+  # task-api:
+  #   image: task-api
+  #   build:
+  #     context: ./API
+  #     dockerfile: ./TaskAPI/Dockerfile
+  #   ports:
+  #     - 5000:5000
+  #   container_name: task-api
+  #   restart: unless-stopped
   mongo:
     image: mongo
     environment:
