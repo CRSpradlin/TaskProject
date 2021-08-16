@@ -1,15 +1,25 @@
+@import "../../styles/main.styles";
+
 .nav {
     flex-direction: row;
     width: 100%;
-    margin: .1rem;
-    padding: .1rem;
 
     &-item{
-        margin: .1rem;
-        padding: .1rem;
+        padding-right: .5rem;
     }
 }
 
 .nav-item.nav-right {
-    margin-left:auto;
+    margin-left: auto;
+    padding-right: 0 !important;
+    padding-left: .5rem;
+
+    &-groupee {
+        padding-right: 0 !important;
+        padding-left: .5rem;
+    }
+}
+
+.btn {
+    font-size: 1.5rem;
 }

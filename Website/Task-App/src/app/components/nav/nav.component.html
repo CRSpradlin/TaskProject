@@ -15,7 +15,7 @@
         <a class="btn btn-primary" [routerLinkActive]="['disabled']" [routerLink]="['register']" aria-current="page">Register</a>
     </li>
 
-    <li *ngIf="!(loggedIn$ | async)" class="nav-item">
+    <li *ngIf="!(loggedIn$ | async)" class="nav-item nav-right-groupee">
         <a class="btn btn-primary" [routerLinkActive]="['disabled']" [routerLink]="['login']" aria-current="page">Login</a>
     </li>
 </ul>

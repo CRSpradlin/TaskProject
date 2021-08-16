@@ -19,6 +19,9 @@ import { UserEffects } from './effects/user-effects';
 import { TasksComponent } from './components/tasks/tasks.component';
 import { TaskEffects } from './effects/task-effects';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { MatDialogModule } from '@angular/material/dialog';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 
 @NgModule({
   declarations: [
@@ -37,8 +40,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     StoreDevtoolsModule.instrument(),
     EffectsModule.forRoot([UserEffects, TaskEffects]),
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    DragDropModule,
+    MatDialogModule,
+    NgbModule
   ],
+  // entryComponents: [
+  //   TasksComponentDialog
+  // ],
   providers: [CookieService],
   bootstrap: [AppComponent]
 })

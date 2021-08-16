@@ -1,1 +1,24 @@
-<p>tasks works!</p>
+<div cdkDropListGroup>
+  <div cdkDropList id="mainList">
+      <div cdkDrag class="modal-contents-drop-item" *ngFor="let task of tasks$ | async" [cdkDragData]="task" (cdkDragDropped)="close($event)" (cdkDragStarted)="open(content)">
+          <div *cdkDragPreview class="modal-contents-drop-item-drag">
+            <div class="modal-contents-drop-item-drag-contents">
+              <div><b>{{ task.title }}</b></div>
+              <div>{{ task.description }}</div>
+            </div>
+          </div>
+          <div class="modal-contents-drop-item-placeholder" *cdkDragPlaceholder></div>
+          <div><b>{{task.title}}</b></div>
+          <div>{{task.description}}</div>
+      </div>
+  </div>
+
+  <ng-template #content let-modal class="modal">
+    <div class="modal-body modal-contents">
+        <div cdkDropList [id]="'markCompleteList'" class='modal-contents-drop-zone-complete'>Mark Task Completed</div>
+        <div cdkDropList [id]="'markUnCompleteList'" class='modal-contents-drop-zone-uncomplete'>Mark Task Un-Completed</div>
+        <div cdkDropList [id]="'CancelList'" class='modal-contents-drop-zone-cancel'>Cancel</div>
+        <div cdkDropList [id]="'DeleteList'" class='modal-contents-drop-zone-delete'>Delete Task</div>
+    </div>
+  </ng-template>
+</div>
