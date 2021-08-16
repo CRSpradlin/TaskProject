@@ -51,5 +51,19 @@ namespace TaskAPI.Services
 
             return data;
         }
+
+        public async Task<bool> CanToggleTask(MongoUserModel user, string taskId)
+        {
+            if (user.TaskIds.Contains(taskId))
+            {
+                var task = await _tasks.Find(task => task.Id == taskId).FirstOrDefaultAsync();
+
+                var taskFilter = Builders<MongoTaskModel>.Filter.Eq("Id", taskId);
+                var taskUpdate = Builders<MongoTaskModel>.Update.Set("Completed", !task.Completed);
+
+                return true;
+            }
+            return false;
+        }
     }
 }

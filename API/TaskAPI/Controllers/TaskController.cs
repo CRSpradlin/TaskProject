@@ -44,6 +44,21 @@ namespace TaskAPI.Controllers
             return Ok();
         }
 
+        [HttpPatch("/api/task/{id:Guid}")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public async Task<ActionResult> toggleTaskCompletion(string id)
+        {
+            var userId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "Id").Value;
+            var user = await _userService.GetUserById(userId);
+
+            if (await _taskService.CanToggleTask(user, id))
+            {
+                return Ok();
+            }
+
+            return Unauthorized();
+        }
+
         [HttpGet("/api/task")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<ActionResult> getTasks()
