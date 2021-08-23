@@ -12,4 +12,29 @@ export const clearTasks = createAction(
 export const tasksSuccessfullyLoaded = createAction(
     '[app task] Task Data Successfully Loaded',
     props<{ payload: TaskEntity[] }>()
+);
+
+let id = 1;
+export const addTaskFormSubmitted = createAction(
+    '[app task] Task Form Submitted',
+    ({ title, description }: { title: string, description: string }) => ({
+        payload: {
+          id: 'temp ' + id++,
+          title,
+          description,
+          completed: false
+        }
+    })
+);
+
+export const taskSuccessfullyAdded = createAction(
+    '[app task] Task Added Successfully',
+    ({ data, oldId }: { data: TaskEntity, oldId: string }) => ({
+        task: data,
+        oldId
+    })
+)
+
+export const taskAddFailure = createAction(
+    '[app task] Task Addition Failed'
 )

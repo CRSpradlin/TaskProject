@@ -19,6 +19,13 @@ const initialState = adapter.getInitialState();
 
 const reducerFunction = createReducer(
   initialState,
+  on(actions.addTaskFormSubmitted, (s, a) => adapter.addOne(a.payload, s)),
+  on(actions.taskSuccessfullyAdded, (s, a) => adapter.updateOne({
+    id: a.oldId,
+    changes: {
+      id: a.task.id
+    }
+  }, s)),
   on(actions.tasksSuccessfullyLoaded, (s, a) => adapter.setAll(a.payload, s)),
   on(actions.clearTasks, () => initialState)
 );

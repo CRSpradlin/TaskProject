@@ -1,3 +1,5 @@
+<app-task-form></app-task-form>
+<hr>
 <div cdkDropListGroup>
   <div cdkDropList id="mainList">
       <div cdkDrag class="modal-contents-drop-item" *ngFor="let task of tasks$ | async" [cdkDragData]="task" (cdkDragDropped)="close($event)" (cdkDragStarted)="open(content)">

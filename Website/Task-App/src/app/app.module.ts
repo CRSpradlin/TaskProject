@@ -21,7 +21,8 @@ import { TaskEffects } from './effects/task-effects';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatDialogModule } from '@angular/material/dialog';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TaskFormComponent } from './components/task-form/task-form.component'
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
     LoginComponent,
     RegisterComponent,
     HomeComponent,
-    TasksComponent
+    TasksComponent,
+    TaskFormComponent
   ],
   imports: [
     BrowserModule,

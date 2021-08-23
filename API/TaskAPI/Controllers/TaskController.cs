@@ -39,9 +39,9 @@ namespace TaskAPI.Controllers
 
             var mongoTask = await _taskService.Create(user, task);
 
-            Console.WriteLine("Task with id: " + mongoTask.Id + " Created for user: " + user.Email);
-
-            return Ok();
+            return Ok(new TaskResponse {
+                Data = mongoTask
+            });
         }
 
         [HttpPatch("/api/task/{id:Guid}")]
