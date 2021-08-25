@@ -33,8 +33,15 @@ export const taskSuccessfullyAdded = createAction(
         task: data,
         oldId
     })
-)
+);
 
 export const taskAddFailure = createAction(
     '[app task] Task Addition Failed'
+);
+
+export const removeTask = createAction(
+    '[app task] Remove Task',
+    ({ task }: { task: TaskEntity }) => ({
+        id: task.id
+    })
 )

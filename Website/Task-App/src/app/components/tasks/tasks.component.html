@@ -2,7 +2,7 @@
 <hr>
 <div cdkDropListGroup>
   <div cdkDropList id="mainList">
-      <div cdkDrag class="modal-contents-drop-item" *ngFor="let task of tasks$ | async" [cdkDragData]="task" (cdkDragDropped)="close($event)" (cdkDragStarted)="open(content)">
+      <div cdkDrag class="modal-contents-drop-item" *ngFor="let task of tasks$ | async" [cdkDragData]="task" (cdkDragDropped)="closeTaskModal($event, confirmmodalcontent)" (cdkDragStarted)="openModal(dropModalcontent)">
           <div *cdkDragPreview class="modal-contents-drop-item-drag">
             <div class="modal-contents-drop-item-drag-contents">
               <div><b>{{ task.title }}</b></div>
@@ -15,12 +15,31 @@
       </div>
   </div>
 
-  <ng-template #content let-modal class="modal">
+  <ng-template #dropModalcontent let-modal class="modal">
     <div class="modal-body modal-contents">
-        <div cdkDropList [id]="'markCompleteList'" class='modal-contents-drop-zone-complete'>Mark Task Completed</div>
-        <div cdkDropList [id]="'markUnCompleteList'" class='modal-contents-drop-zone-uncomplete'>Mark Task Un-Completed</div>
-        <div cdkDropList [id]="'CancelList'" class='modal-contents-drop-zone-cancel'>Cancel</div>
-        <div cdkDropList [id]="'DeleteList'" class='modal-contents-drop-zone-delete'>Delete Task</div>
+        <div cdkDropList [id]="'complete'" class='modal-contents-drop-zone-complete'>Mark Task Completed</div>
+        <div cdkDropList [id]="'uncomplete'" class='modal-contents-drop-zone-uncomplete'>Mark Task Un-Completed</div>
+        <div cdkDropList [id]="'cancel'" class='modal-contents-drop-zone-cancel'>Cancel</div>
+        <div cdkDropList [id]="'delete'" class='modal-contents-drop-zone-delete'>Delete Task</div>
     </div>
   </ng-template>
 </div>
+
+<ng-template #confirmmodalcontent>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-title">{{modalAction?.task?.title}}</h4>
+    <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title" (click)="closeConfirmModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p><strong>Are you sure you want to <span class="text-primary">{{modalAction?.type}}</span> the task?</strong></p>
+    <p *ngIf="modalAction?.type === 'delete'">
+      <span class="text-danger">This operation can not be undone.</span>
+    </p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary" (click)="closeConfirmModal()">Cancel</button>
+    <button type="button" ngbAutofocus class="btn btn-primary" (click)="processConfirmModalAction()">Ok</button>
+  </div>
+</ng-template>
