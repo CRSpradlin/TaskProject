@@ -1,15 +1,12 @@
 import { Component, Inject, OnInit, TemplateRef } from '@angular/core';
-import { EntityState } from '@ngrx/entity';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { loadTasks, removeTask } from 'src/app/actions/task.actions';
 import { TaskListModel } from 'src/app/models/taskModel';
 import { AppState, selectTasks } from 'src/app/reducers';
-import { TaskEntity } from 'src/app/reducers/tasks.reducer';
 
-import {CdkDrag, CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog'
-import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { CdkDragDrop } from '@angular/cdk/drag-drop';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-tasks',
@@ -63,14 +60,4 @@ export class TasksComponent implements OnInit {
       this.tasks = tasks
     })
   }
-
-  // TODO: Remove Sometime
-  // drop(event: CdkDragDrop<TaskListModel>) {
-  //   //moveItemInArray(this.tasks, event.previousIndex, event.currentIndex)
-  //   console.log(event.container)
-  // }
-
-  // test(data: TaskListModel): void {
-  //   console.log(data);
-  // }
 }

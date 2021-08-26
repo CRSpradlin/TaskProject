@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { userLoggedIn, userLogInFormIncorrectlySubmitted, userLogInFormSubmitted } from 'src/app/actions/user.actions';
+import { userLogInFormIncorrectlySubmitted, userLogInFormSubmitted } from 'src/app/actions/user.actions';
 import { AppState, selectUserLoggedInBoolean } from 'src/app/reducers';
 
 @Component({
