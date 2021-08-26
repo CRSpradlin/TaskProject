@@ -3,10 +3,11 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { loadTasks, removeTask } from 'src/app/actions/task.actions';
 import { TaskListModel } from 'src/app/models/taskModel';
-import { AppState, selectTasks } from 'src/app/reducers';
+import { AppState, selectTasks, selectUserLoggedInBoolean } from 'src/app/reducers';
 
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tasks',
@@ -20,9 +21,10 @@ export class TasksComponent implements OnInit {
   modalAction?: {
     task: TaskListModel
     type: string
-  } 
+  }
+  loggedIn$?: Observable<boolean>; 
 
-  constructor(private store: Store<AppState>, private modalService: NgbModal) { }
+  constructor(private store: Store<AppState>, private router: Router, private modalService: NgbModal) { }
 
   openModal(content: TemplateRef<any>, modalOptions: any = {ariaLabelledBy: 'modal-task-change-options', size: 'xl', centered: true}) {
     this.modalService.open(content, modalOptions);
@@ -54,10 +56,16 @@ export class TasksComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.loggedIn$ = this.store.select(selectUserLoggedInBoolean)
     this.store.dispatch(loadTasks())
     this.tasks$ = this.store.select(selectTasks)
     this.tasks$.subscribe(tasks => {
       this.tasks = tasks
+    })
+    this.loggedIn$.subscribe(loggedIn => {
+      if(!loggedIn) {
+        this.router.navigate(['/login']);
+      }
     })
   }
 }
